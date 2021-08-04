@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="HalffaceRichard">
+  <meta name="keywords" content="">
+  
+  <title>myBatis-plus复习小结 - MyBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":false,"typeSpeed":99,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>HalffaceRichard</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="myBatis-plus复习小结">
+              
+                myBatis-plus复习小结
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-08-04 17:13" pubdate>
+        2021年8月4日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">myBatis-plus复习小结</h1>
+            
+            <div class="markdown-body">
+              <h4 id="第一步，分析依赖"><a href="#第一步，分析依赖" class="headerlink" title="第一步，分析依赖"></a>第一步，分析依赖</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.baomidou<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.4.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/p1.PNG" srcset="/img/loading.gif" lazyload alt="Image text"></p>
+<p>由上图可以看到，mybatis-plus的starter里引入了mybatis和jdbc，所以不需要在依赖中再引入这些，仅仅有一个mybatis-plus足够了。</p>
+<h4 id="第二步，分析主要源码"><a href="#第二步，分析主要源码" class="headerlink" title="第二步，分析主要源码"></a>第二步，分析主要源码</h4><h5 id="2-1-找到spring-factories"><a href="#2-1-找到spring-factories" class="headerlink" title="2.1 找到spring.factories"></a>2.1 找到spring.factories</h5><p><img src="/img/p2.PNG" srcset="/img/loading.gif" lazyload alt="Image text"></p>
+<p>由上图，在mybatis-plus-boot-starter中的META-INF里spring.factories可以看到，项目一启动，便会加载这些类。这些类位于mybatisplus.autoconfigure中。</p>
+<h5 id="2-2-分析配置类（MybatisPlusAutoConfiguration）"><a href="#2-2-分析配置类（MybatisPlusAutoConfiguration）" class="headerlink" title="2.2 分析配置类（MybatisPlusAutoConfiguration）"></a>2.2 分析配置类（MybatisPlusAutoConfiguration）</h5><p><img src="/img/p3.PNG" srcset="/img/loading.gif" lazyload alt="Image text"></p>
+<ul>
+<li>配置文件中的所有属性都和MybatisPlusProperties.class相绑定。</li>
+</ul>
+<p>点进去看一下，发现前缀prefix = Constants.MYBATIS_PLUS</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@ConfigurationProperties(prefix = Constants.MYBATIS_PLUS)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MybatisPlusProperties</span> </span>&#123;...&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后又看到如下接口，用mybatis-plus:xxx来进行定制化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Constants</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">StringPool</span>, <span class="hljs-title">Serializable</span> </span>&#123;<br>    String MYBATIS_PLUS = <span class="hljs-string">&quot;mybatis-plus&quot;</span>;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>回到配置类，发现SqlSessionFactory自动配置好了，且底层是容器中默认的数据源。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Bean</span><br><span class="hljs-meta">@ConditionalOnMissingBean</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> SqlSessionFactory <span class="hljs-title">sqlSessionFactory</span><span class="hljs-params">(DataSource dataSource)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>    MybatisSqlSessionFactoryBean factory = <span class="hljs-keyword">new</span> MybatisSqlSessionFactoryBean();<br>    factory.setDataSource(dataSource);<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>而且，在配置类中，还有SqlSessionTemplate</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Bean</span><br><span class="hljs-meta">@ConditionalOnMissingBean</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> SqlSessionTemplate <span class="hljs-title">sqlSessionTemplate</span><span class="hljs-params">(SqlSessionFactory sqlSessionFactory)</span> </span>&#123;<br>    ExecutorType executorType = <span class="hljs-keyword">this</span>.properties.getExecutorType();<br>    <span class="hljs-keyword">if</span> (executorType != <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SqlSessionTemplate(sqlSessionFactory, executorType);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SqlSessionTemplate(sqlSessionFactory);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>@Mapper 标注的接口也会被自动扫描，建议直接@MapperScan(“com.xxx.mapper”)批量扫描。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@Import(AutoConfiguredMapperScannerRegistrar.class)</span><br><span class="hljs-meta">@ConditionalOnMissingBean(&#123;MapperFactoryBean.class, MapperScannerConfigurer.class&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MapperScannerRegistrarNotFoundConfiguration</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InitializingBean</span> </span>&#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterPropertiesSet</span><span class="hljs-params">()</span> </span>&#123;<br>        logger.debug(<br>            <span class="hljs-string">&quot;Not found configuration for registering mapper bean using @MapperScan, MapperFactoryBean and MapperScannerConfigurer.&quot;</span>);<br>    &#125;<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/p4.PNG" srcset="/img/loading.gif" lazyload alt="Image text"></p>
+<ul>
+<li>在MybatisPlusProperties类中，mapperLocations自动配置好了，有默认值classpath*:/mapper/**/*.xml，这表示任意包的类路径下的所有mapper文件夹下任意路径下的所有xml都是sql映射文件。 建议以后sql映射文件放在 mapper下。</li>
+</ul>
+<blockquote>
+<p>只需要Mapper继承MyBatisPlus的BaseMapper类就可以拥有CRUD能力。<br>public interface XXXMapper extends BaseMapper&lt;返回类型&gt;{}</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BaseMapper</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Mapper</span>&lt;<span class="hljs-title">T</span>&gt; </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(T entity)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">deleteById</span><span class="hljs-params">(Serializable id)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">deleteByMap</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;cm&quot;)</span> Map&lt;String, Object&gt; columnMap)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">deleteBatchIds</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;coll&quot;)</span> Collection&lt;? extends Serializable&gt; idList)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">updateById</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;et&quot;)</span> T entity)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;et&quot;)</span> T entity, <span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; updateWrapper)</span></span>;<br>    <span class="hljs-function">T <span class="hljs-title">selectById</span><span class="hljs-params">(Serializable id)</span></span>;<br>    <span class="hljs-function">List&lt;T&gt; <span class="hljs-title">selectBatchIds</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;coll&quot;)</span> Collection&lt;? extends Serializable&gt; idList)</span></span>;<br>    <span class="hljs-function">List&lt;T&gt; <span class="hljs-title">selectByMap</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;cm&quot;)</span> Map&lt;String, Object&gt; columnMap)</span></span>;<br>    <span class="hljs-function">T <span class="hljs-title">selectOne</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>    <span class="hljs-function">Integer <span class="hljs-title">selectCount</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>    <span class="hljs-function">List&lt;T&gt; <span class="hljs-title">selectList</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>    List&lt;Map&lt;String, Object&gt;&gt; selectMaps(<span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper);<br>    <span class="hljs-function">List&lt;Object&gt; <span class="hljs-title">selectObjs</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>    &lt;E extends IPage&lt;T&gt;&gt; <span class="hljs-function">E <span class="hljs-title">selectPage</span><span class="hljs-params">(E page, <span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>    &lt;E extends IPage&lt;Map&lt;String, Object&gt;&gt;&gt; <span class="hljs-function">E <span class="hljs-title">selectMapsPage</span><span class="hljs-params">(E page, <span class="hljs-meta">@Param(&quot;ew&quot;)</span> Wrapper&lt;T&gt; queryWrapper)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="第三步，一些使用上的注意事项"><a href="#第三步，一些使用上的注意事项" class="headerlink" title="第三步，一些使用上的注意事项"></a>第三步，一些使用上的注意事项</h4><ol>
+<li>具体在使用mybatis-plus时，要先有Service接口，然后让接口继承IService；再让接口的实现类在实现接口的同时，继承ServiceImpl类，在ServiceImpl中要注明操作的是哪个Mapper以及要返回的数据类型。</li>
+<li>可以用@TableName(“表名”)来给pojo标注上具体连接数据库中的哪个表；</li>
+<li>pojo中的所有属性都应该在数据库中，如果有不在的，标记上@TableField(exist=false)</li>
+<li>关于主键生成策略：参考雪花算法，通常使用@TableId(type=IdType.ID_WORKER)注解，可以保证ID全局唯一。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@TableId(type=IdType.ID_WORKER)</span><br><span class="hljs-comment">//点开注解</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-meta">@Target(&#123;ElementType.FIELD&#125;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> TableId &#123;<br>    <span class="hljs-function">String <span class="hljs-title">value</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> &quot;&quot;</span>;<br><br>    <span class="hljs-function">IdType <span class="hljs-title">type</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> IdType.NONE</span>;<br>&#125;<br><span class="hljs-comment">//查看IdType</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">IdType</span> </span>&#123;<br>    AUTO(<span class="hljs-number">0</span>),<br>    NONE(<span class="hljs-number">1</span>),<br>    INPUT(<span class="hljs-number">2</span>),<br>    ID_WORKER(<span class="hljs-number">3</span>),<br>    UUID(<span class="hljs-number">4</span>),<br>    ID_WORKER_STR(<span class="hljs-number">5</span>);<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> key;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">IdType</span><span class="hljs-params">(<span class="hljs-keyword">int</span> key)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.key = key;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getKey</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.key;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>若是主键自增，就是用@TableId(type=IdType.AUTO)，同时在数据库表中勾选主键自增。</p>
+<ol start="5">
+<li>自动填充功能：实现元对象处理器接口：handlers.MetaObjectHandler。具体来说就是在pojo类里想要实现自动填充功能的属性上添加注解。然后创建XXXMetaObjectHandler类实现MetaObjectHandler接口，重写相对应的方法，利用反射找到相对应的属性名字实现自动填充功能。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@TableField(fill= FieldFill.INSERT)</span><br><span class="hljs-keyword">private</span> Date createTime;<br><span class="hljs-meta">@TableField(fill = FieldFill.INSERT_UPDATE)</span><br><span class="hljs-keyword">private</span> Date updateTime;<br><span class="hljs-comment">//</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyMetaObjectHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">MetaObjectHandler</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insertFill</span><span class="hljs-params">(MetaObject metaObject)</span> </span>&#123;<br>        log.info(<span class="hljs-string">&quot;开始插入填充...&quot;</span>);<br>        <span class="hljs-keyword">this</span>.setFieldValByName(<span class="hljs-string">&quot;createTime&quot;</span>,<span class="hljs-keyword">new</span> Date(),metaObject);<br>        <span class="hljs-keyword">this</span>.setFieldValByName(<span class="hljs-string">&quot;updateTime&quot;</span>,<span class="hljs-keyword">new</span> Date(),metaObject);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">updateFill</span><span class="hljs-params">(MetaObject metaObject)</span> </span>&#123;<br>        log.info(<span class="hljs-string">&quot;开始更新填充...&quot;</span>);<br>        <span class="hljs-keyword">this</span>.setFieldValByName(<span class="hljs-string">&quot;updateTime&quot;</span>,<span class="hljs-keyword">new</span> Date(),metaObject);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>乐观锁（OptimisticLockerInnerInterceptor）：当要更新一条记录的时候，希望这条记录没有被别人更新。</li>
+</ol>
+<ul>
+<li>乐观锁实现方式：<blockquote>
+<p>取出记录时，获取当前version<br>更新时，带上这个version<br>执行更新时， set version = newVersion where version = oldVersion<br>如果version不对，就更新失败</p>
+</blockquote>
+</li>
+</ul>
+<p>6.1 在数据库中添加version字段；<br>6.2 在实体类中同步更新；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@Version</span><br><span class="hljs-keyword">private</span> Integer version;<br></code></pre></td></tr></table></figure>
+
+<p>6.3 在配置类中写如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">// Spring Boot 方式</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@MapperScan(&quot;按需修改&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MybatisPlusConfig</span> </span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 旧版</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> OptimisticLockerInterceptor <span class="hljs-title">optimisticLockerInterceptor</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OptimisticLockerInterceptor();<br>    &#125;<br>    <br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 新版</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> MybatisPlusInterceptor <span class="hljs-title">mybatisPlusInterceptor</span><span class="hljs-params">()</span> </span>&#123;<br>        MybatisPlusInterceptor mybatisPlusInterceptor = <span class="hljs-keyword">new</span> MybatisPlusInterceptor();<br>        mybatisPlusInterceptor.addInnerInterceptor(<span class="hljs-keyword">new</span> OptimisticLockerInnerInterceptor());<br>        <span class="hljs-keyword">return</span> mybatisPlusInterceptor;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>分页查询功能：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">//Spring boot方式</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@MapperScan(&quot;com.baomidou.cloud.service.*.mapper*&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MybatisPlusConfig</span> </span>&#123;<br><br>    <span class="hljs-comment">// 旧版</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> PaginationInterceptor <span class="hljs-title">paginationInterceptor</span><span class="hljs-params">()</span> </span>&#123;<br>        PaginationInterceptor paginationInterceptor = <span class="hljs-keyword">new</span> PaginationInterceptor();<br>        <span class="hljs-comment">// 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false</span><br>        <span class="hljs-comment">// paginationInterceptor.setOverflow(false);</span><br>        <span class="hljs-comment">// 设置最大单页限制数量，默认 500 条，-1 不受限制</span><br>        <span class="hljs-comment">// paginationInterceptor.setLimit(500);</span><br>        <span class="hljs-comment">// 开启 count 的 join 优化,只针对部分 left join</span><br>        paginationInterceptor.setCountSqlParser(<span class="hljs-keyword">new</span> JsqlParserCountOptimize(<span class="hljs-keyword">true</span>));<br>        <span class="hljs-keyword">return</span> paginationInterceptor;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 最新版</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> MybatisPlusInterceptor <span class="hljs-title">mybatisPlusInterceptor</span><span class="hljs-params">()</span> </span>&#123;<br>        MybatisPlusInterceptor interceptor = <span class="hljs-keyword">new</span> MybatisPlusInterceptor();<br>        interceptor.addInnerInterceptor(<span class="hljs-keyword">new</span> PaginationInnerInterceptor(DbType.H2));<br>        <span class="hljs-keyword">return</span> interceptor;<br>    &#125;<br>    <br>&#125;<br><br><span class="hljs-comment">//示例：</span><br><span class="hljs-meta">@Test</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testPage</span><span class="hljs-params">()</span></span>&#123;<br>    Page&lt;User&gt; page = <span class="hljs-keyword">new</span> Page&lt;&gt;(<span class="hljs-number">1</span>,<span class="hljs-number">5</span>);<br>    userMapper.selectPage(page,<span class="hljs-keyword">null</span>);<br>    page.getRecords().forEach(System.out::println);<br>    System.out.println(page.getTotal());<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="8">
+<li><p>逻辑删除功能：本质上是更新操作，使用@TableLogic注解加在实体类字段上。同时，执行查询操作的时候会自动过滤被逻辑删除的数据。</p>
+</li>
+<li><p>SQL分析打印：主要是对一些慢sql执行性能分析拦截。</p>
+</li>
+<li><p>条件构造器wrapper：</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-meta">@SpringBootTest</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WrapperTest</span> </span>&#123;<br>    <span class="hljs-meta">@Autowired</span><br>    UserMapper userMapper;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testNoNull</span><span class="hljs-params">()</span></span>&#123;<br>        QueryWrapper&lt;User&gt; wrapper = <span class="hljs-keyword">new</span> QueryWrapper&lt;&gt;();<br>        wrapper<br>                .isNotNull(<span class="hljs-string">&quot;name&quot;</span>)<br>                .isNotNull(<span class="hljs-string">&quot;email&quot;</span>)<br>                .ge(<span class="hljs-string">&quot;age&quot;</span>,<span class="hljs-number">1</span>);<br>        userMapper.selectList(wrapper).forEach(System.out::println);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>代码生成器：主要分3步骤，首先是AutoGenerator mpg = new AutoGenerator();然后是各种配置，最后是mpg.execute();</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CRUD/">CRUD</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/myBatis-plus/">myBatis-plus</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/08/04/Redis%E5%A4%8D%E4%B9%A0%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">Redis复习小结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
